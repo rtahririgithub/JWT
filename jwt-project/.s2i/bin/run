@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "Custom .s2i/bin/run file"
+
+if [ -f "/opt/openshift/configuration/jenkins.model.JenkinsLocationConfiguration.xml.tpl" -a ! -f "/opt/openshift/configuration/jenkins.model.JenkinsLocationConfiguration.xml" ]; then
+  echo "Processing Jenkins configuration (/opt/openshift/configuration/jenkins.model.JenkinsLocationConfiguration.xml.tpl) ..."
+  envsubst < "/opt/openshift/configuration/jenkins.model.JenkinsLocationConfiguration.xml.tpl" > "/opt/openshift/configuration/jenkins.model.JenkinsLocationConfiguration.xml"
+fi
+
+if [ -f "/opt/openshift/configuration/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml.tpl" -a ! -f "/opt/openshift/configuration/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml" ]; then
+  echo "Processing Jenkins configuration (/opt/openshift/configuration/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml.tpl) ..."
+  envsubst < "/opt/openshift/configuration/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml.tpl" > "/opt/openshift/configuration/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml"
+fi
+
+source /usr/libexec/s2i/run

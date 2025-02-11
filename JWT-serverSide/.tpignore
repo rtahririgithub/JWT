@@ -1,0 +1,40 @@
+# ignore clearcase files
+.*/lost+found/.*
+.*/[^/]+\.copyarea.*
+.*/[^/]+\.keep
+.*/[^/]+\.loading
+.*/[^/]+\.merge?
+.*/[^/]+\harvest.sig
+
+# ignore .class files
+.*/[^/]+\.class
+
+# ignore packaged files #
+.*/[^/]+\.jar
+.*/[^/]+\.war
+.*/[^/]+\.ear
+.*/[^/]+\.tar
+.*/[^/]+\.tar.gz
+.*/[^/]+\.tgz
+.*/[^/]+\.rar
+.*/[^/]+\.zip
+.*/[^/]+\.exe
+
+# ignore the target directory and all children
+.*/target/.*
+
+# ignore the generated-sources directory and all children
+.*/generated-sources/.*
+
+#ignore the eclipse .settings directory and all children
+.*/\.settings/.*
+#ignore other eclipse files as these aspects are managed by the Maven pom.xml
+.*/\.classpath
+.*/\.project
+
+
+# ignore Frameworks appCtx.properties file from the EAR deployment
+#   this file will be generated into this location using the replacer-plugin when
+#   updating the build information.
+.*/APP-INF/classes/appCtx.properties
+

@@ -1,0 +1,50 @@
+import jenkins.model.Jenkins
+import hudson.FilePath
+@Library ('infra-paas-starter-lib@v5.6.0')
+import com.telus.paas.starter.*
+import com.telus.paas.starter.util.*
+import com.telus.paas.starter.stage.*
+
+def mavenTemplate = new mavenDefaultTemplate()
+def checkoutStage = new Checkout()
+def prompt = new Prompt()
+def deployStage = new Deploy()
+
+mavenTemplate {
+  //Notification, recpientList needs to be outside of try block for use in catch
+  def recipientList
+  def tag = 'latest'
+  try {
+    currentBuild.result = 'SUCCESS'
+    node('buildpod') {
+      stage('Checkout') {
+        skipImageGeneration = true
+        checkoutStage.doCheckout(skipImageGeneration)
+        recipientList = checkoutStage.recipientList
+        echo "jenkins recipientList: ${recipientList}"
+      }
+    }
+
+    // Deploy to PR
+    stage ('Deploy to PR?') {
+      prompt.setup()
+      response=prompt.deployPRPrompt(recipientList)
+      user = response.submitter
+      environment = response.Environment
+    }
+
+    node('buildpod') { 
+      stage('Deploying to PR'){
+        deployStage.setup()
+        deployStage.deployPR(tag, recipientList, environment, user)
+      }
+    }
+  }
+  catch (err) {
+    echo ("Attempting to send errorMessage to ${recipientList}")
+    def notificationUtil = new NotificationUtil()
+    notificationUtil.sendErrorMessage(recipientList)
+    currentBuild.result = 'FAILURE'
+    throw err
+  }
+}

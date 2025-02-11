@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.sonar.SonarGlobalConfiguration plugin="sonar@2.6.1">
+  <installations>
+    <hudson.plugins.sonar.SonarInstallation>
+      <name>Sonar</name>
+      <serverUrl>http://sonarqube.tsl.telus.com:9000/</serverUrl>
+      <serverVersion>5.3</serverVersion>
+      <serverAuthenticationToken></serverAuthenticationToken>
+      <mojoVersion></mojoVersion>
+      <databaseUrl></databaseUrl>
+      <databaseLogin></databaseLogin>
+      <additionalProperties>sonar.working.directory=.m2</additionalProperties>
+      <additionalAnalysisProperties>sonar.working.directory=.m2</additionalAnalysisProperties>
+      <additionalAnalysisProperties></additionalAnalysisProperties>
+      <triggers>
+        <skipScmCause>false</skipScmCause>
+        <skipUpstreamCause>false</skipUpstreamCause>
+        <envVar></envVar>
+      </triggers>
+      <sonarLogin></sonarLogin>
+      <databaseSecret></databaseSecret>
+      <sonarSecret></sonarSecret>
+    </hudson.plugins.sonar.SonarInstallation>
+  </installations>
+  <buildWrapperEnabled>false</buildWrapperEnabled>
+</hudson.plugins.sonar.SonarGlobalConfiguration>

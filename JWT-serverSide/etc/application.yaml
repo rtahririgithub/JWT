@@ -1,0 +1,184 @@
+info:
+  tag: ${IMAGE_TAG}
+  build:
+    artifact: ${PROJECT_ARTIFACT_ID}
+    name: ${PROJECT_NAME}
+    version: ${PROJECT_VERSION}
+    build: ${BUILD_DT}
+management:
+  security:
+    enabled: false
+server:
+  contextPath: /v1
+
+RESTAuthFilterConfig:
+  filterUrls:
+    - /greeting
+    - /greeting2
+logging:
+  level:
+    root: DEBUG
+---
+
+spring:
+  profiles: local
+  
+RESTAuthFilterConfig:
+  filterUrls:
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-dv101.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-dv101.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+
+security:
+  accesstoken:
+    jwkKeySetUrl: 'https://apigw-st.telus.com/st/jwks'
+    scope: '192'
+    audience: 'kong'
+---
+
+spring:
+  profiles: dv
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-dv101.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-dv101.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+
+security:
+  accesstoken:
+    jwkKeySetUrl: 'https://apigw-st.telus.com/st/jwks'
+    scope: '192'
+    audience: 'kong'
+
+---
+
+spring:
+  profiles: it01
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt168.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt168.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+
+security:
+  accesstoken:
+    jwkKeySetUrl: 'https://apigw-st.telus.com/st/jwks'
+    scope: '192'
+    audience: 'kong'
+---
+
+spring:
+  profiles: it02
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt148.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt148.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+
+security:
+  accesstoken:
+    jwkKeySetUrl: 'https://apigw-st.telus.com/st/jwks'
+    scope: '192'
+    audience: 'kong'
+
+---
+
+spring:
+  profiles: it03
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt140.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt140.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+security:
+  accesstoken:
+    jwkKeySetUrl: 'https://apigw-st.telus.com/st/jwks'
+    scope: '192'
+    audience: 'kong'
+
+---
+
+spring:
+  profiles: it04
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-st101.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-st101.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+logging:
+  level:
+    root: WARN
+security:
+  accesstoken:
+    jwkKeySetUrl: 'https://apigw-st.telus.com/st/jwks'
+    scope: '192'
+    audience: 'kong'
+        
+---
+
+spring:
+  profiles: pr
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pr.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pr.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+logging:
+  level:
+    root: WARN
+security:
+  accesstoken:
+    jwkKeySetUrl: 'https://apigw-pr.telus.com/jwks'
+    scope: '192'
+    audience: 'kong'

@@ -1,0 +1,229 @@
+apiVersion: v1
+kind: Template
+metadata:
+  annotations:
+    iconClass: icon-java
+  name: ${APPLICATION_NAME}-${GIT_REF}
+objects:
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    name: ${APPLICATION_NAME}-${GIT_REF}
+    labels:
+      application: ${APPLICATION_NAME}-${GIT_REF}
+  spec:
+    tags:
+    - name: latest
+    - name: dv
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      pipeline.alpha.openshift.io/uses: '[{"name": "${APPLICATION_NAME}-${GIT_REF}", "namespace": "", "kind": "DeploymentConfig"}]'
+    name: ${APPLICATION_NAME}-${GIT_REF}-pipeline
+    labels:
+      application: ${APPLICATION_NAME}-${GIT_REF}
+  spec:
+    source:
+      git:
+        uri: ${GIT_URI}
+        ref: ${GIT_REF}
+      type: Git
+      sourceSecret:
+        name: telus-git
+    strategy:
+      type: JenkinsPipeline
+      jenkinsPipelineStrategy:
+        env:
+          - name: "BRANCH_NAME"
+            value: ${GIT_REF}
+          - name: "JIRA_KEY"
+            value: ${JIRA_KEY}
+          - name: "JIRA_EPIC_KEY"
+            value: ${JIRA_EPIC_KEY}
+          - name: "APPLICATION"
+            value: ${APPLICATION_NAME}
+          - name: "PROJECT_NAMESPACE"
+            value: ${PROJECT_NAMESPACE}
+          - name: VERSION
+            value: ${VERSION}
+          - name: ENABLE_STATIC_CODE_ANALYSIS
+            value: ${ENABLE_STATIC_CODE_ANALYSIS}
+          - name: PT_ENV
+            value: prompt
+          - name: ST_ENV
+            value: prompt
+          - name: X_API_KEY
+            value: ${X_API_KEY}
+          - name: UAT_TESTER
+            value: ${UAT_TESTER}
+          - name: WBS_CODE
+            value: ${WBS_CODE}
+          - name: TEST_REPORT
+            value: ${TEST_REPORT}
+          - name: DATACENTER
+            value: ${DATACENTER}
+        jenkinsfilePath: Jenkinsfile
+    triggers:
+    - generic:
+        secret: FiArdDBH
+      type: Generic
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      pipeline.alpha.openshift.io/uses: '[{"name": "${APPLICATION_NAME}-${GIT_REF}", "namespace": "", "kind": "DeploymentConfig"}]'
+    name: ${APPLICATION_NAME}-${GIT_REF}-backfill-pipeline
+    labels:
+      application: ${APPLICATION_NAME}-${GIT_REF}
+  spec:
+    source:
+      git:
+        uri: ${GIT_URI}
+        ref: ${GIT_REF}
+      type: Git
+      sourceSecret:
+        name: telus-git
+    strategy:
+      type: JenkinsPipeline
+      jenkinsPipelineStrategy:
+        env:
+          - name: "BRANCH_NAME"
+            value: ${GIT_REF}
+          - name: "JIRA_KEY"
+            value: ${JIRA_KEY}
+          - name: "JIRA_EPIC_KEY"
+            value: ${JIRA_EPIC_KEY}
+          - name: "APPLICATION"
+            value: ${APPLICATION_NAME}
+          - name: "PROJECT_NAMESPACE"
+            value: ${PROJECT_NAMESPACE}
+          - name: VERSION
+            value: ${VERSION}
+          - name: PT_ENV_LIST
+            value: prompt
+          - name: DATACENTER
+            value: ${DATACENTER}
+          - name: X_API_KEY
+            value: ${X_API_KEY}
+        jenkinsfilePath: Jenkinsfile.pt_backfill
+    triggers:
+    - generic:
+        secret: FiArdDBH
+      type: Generic
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    annotations:
+      pipeline.alpha.openshift.io/uses: '[{"name": "${APPLICATION_NAME}-${GIT_REF}", "namespace": "", "kind": "DeploymentConfig"}]'
+    name: ${APPLICATION_NAME}-${GIT_REF}-production-pipeline
+    labels:
+      application: ${APPLICATION_NAME}-${GIT_REF}
+  spec:
+    source:
+      git:
+        uri: ${GIT_URI}
+        ref: ${GIT_REF}
+      type: Git
+      sourceSecret:
+        name: telus-git
+    strategy:
+      type: JenkinsPipeline
+      jenkinsPipelineStrategy:
+        env:
+          - name: BRANCH_NAME
+            value: ${GIT_REF}
+          - name: APPLICATION
+            value: ${APPLICATION_NAME}
+          - name: PROJECT_NAMESPACE
+            value: ${PROJECT_NAMESPACE}
+          - name: VERSION
+            value: ${VERSION}
+          - name: DATACENTER
+            value: ${DATACENTER}
+        jenkinsfilePath: Jenkinsfile.production
+    triggers:
+    - generic:
+        secret: FiArdDBH
+      type: Generic
+- apiVersion: v1
+  kind: BuildConfig
+  metadata:
+    name: ${APPLICATION_NAME}-${GIT_REF}
+    labels:
+      application: ${APPLICATION_NAME}-${GIT_REF}
+  spec:
+    failedBuildsHistoryLimit: 5
+    successfulBuildsHistoryLimit: 10
+    output:
+      to:
+        kind: ImageStreamTag
+        name: ${APPLICATION_NAME}-${GIT_REF}:latest
+    postCommit: {}
+    resources: {}
+    runPolicy: Serial
+    source:
+      binary: {}
+      type: Binary
+    strategy:
+      sourceStrategy:
+        from:
+          kind: ImageStreamTag
+          name: telus-jdk18-s2i:latest
+          namespace: openshift
+      type: Source
+    triggers:
+parameters:
+- displayName: Application name
+  name: APPLICATION_NAME
+  required: true
+  value: paas-springboot-starter
+- description: Git source URI for application
+  displayName: Git source repository
+  name: GIT_URI
+  required: true
+  value: http://tfs.tsl.telus.com/tfs/telus/BT-GIT/_git/infra-paas-springboot-starter-project
+- description: Git branch/tag reference
+  displayName: Git branch/tag reference
+  name: GIT_REF
+  value: master
+- description: Jira Key
+  displayName: Jira Key
+  name: JIRA_KEY
+  value: PAAS
+- description: Jira Epic Key
+  displayName: Jira Epic Key
+  name: JIRA_EPIC_KEY
+  value: PAAS-187
+- description: Version
+  displayName: Version of service/application
+  name: VERSION
+  value: v1
+- description: Project Namespace
+  displayName: Project Namespace
+  name: PROJECT_NAMESPACE
+  value: shoveit-master
+- description: Enable Static Code Analysis
+  displayName: Enable Static Code Analysis
+  name: ENABLE_STATIC_CODE_ANALYSIS
+  value: "true"
+- description: API key for the application
+  displayName: API key
+  name: X_API_KEY
+  value: "YourApiKey"
+- description: UAT Tester for the application
+  displayName: UAT Tester
+  name: UAT_TESTER
+  value: "UatTesterNameAndNumber"
+- description: WBS code for the deployment
+  displayName: WBS code
+  name: WBS_CODE
+  value: "YourWbsCode"
+- description: Test report publish desintation
+  displayName: Test report publish desintation
+  name: TEST_REPORT
+  value: ELK
+- description: Datacenter
+  displayName: Datacenter
+  name: DATACENTER
+  value: QIDC

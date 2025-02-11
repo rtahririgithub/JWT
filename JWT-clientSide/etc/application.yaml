@@ -1,0 +1,203 @@
+info:
+  tag: ${IMAGE_TAG}
+  build:
+    artifact: ${PROJECT_ARTIFACT_ID}
+    name: ${PROJECT_NAME}
+    version: ${PROJECT_VERSION}
+    build: ${BUILD_DT}
+   
+management:
+  security:
+    enabled: false
+server:
+  contextPath: /v1
+
+RESTAuthFilterConfig:
+  filterUrls:
+    - /greeting
+    - /greeting2
+logging:
+  level:
+    root: DEBUG
+---
+
+spring:
+  profiles: local
+  
+RESTAuthFilterConfig:
+  filterUrls:
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-dv101.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-dv101.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+
+    
+security:
+   accesstoken: 
+     username: '4b0b47b1-4b8a-4967-8068-1c894cca76b3'
+     password: '09d8e7ed-9e7d-4259-82f2-073608b0869b617b1e9e-441d-453d-9d64-06772a658f52'
+     apigw-token-url: 'https://apigw-st.telus.com/st/token'
+     tfm_project_id: '192'
+     
+---
+
+
+spring:
+  profiles: dv
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-dv101.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-dv101.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+
+
+
+security:
+   accesstoken: 
+     username: '4b0b47b1-4b8a-4967-8068-1c894cca76b3'
+     password: '09d8e7ed-9e7d-4259-82f2-073608b0869b617b1e9e-441d-453d-9d64-06772a658f52'
+     apigw-token-url: 'https://apigw-st.telus.com/st/token'
+     tfm_project_id: '192'       
+---
+
+spring:
+  profiles: it01
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt168.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt168.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+
+
+    
+security:
+   accesstoken: 
+     username: '4b0b47b1-4b8a-4967-8068-1c894cca76b3'
+     password: '09d8e7ed-9e7d-4259-82f2-073608b0869b617b1e9e-441d-453d-9d64-06772a658f52'
+     apigw-token-url: 'https://apigw-st.telus.com/st/token'   
+     tfm_project_id: '192' 
+---
+
+spring:
+  profiles: it02
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt148.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt148.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+
+
+    
+security:
+   accesstoken: 
+     username: '4b0b47b1-4b8a-4967-8068-1c894cca76b3'
+     password: '09d8e7ed-9e7d-4259-82f2-073608b0869b617b1e9e-441d-453d-9d64-06772a658f52'
+     apigw-token-url: 'https://apigw-st.telus.com/st/token'
+     tfm_project_id: '192'
+---
+
+spring:
+  profiles: it03
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt140.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pt140.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+
+
+security:
+   accesstoken: 
+     username: '4b0b47b1-4b8a-4967-8068-1c894cca76b3'
+     password: '09d8e7ed-9e7d-4259-82f2-073608b0869b617b1e9e-441d-453d-9d64-06772a658f52'
+     apigw-token-url: 'https://apigw-st.telus.com/st/token'
+     tfm_project_id: '192'     
+---
+
+spring:
+  profiles: it04
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-st101.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-st101.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+logging:
+  level:
+    root: WARN
+
+ 
+security:
+   accesstoken: 
+     username: '4b0b47b1-4b8a-4967-8068-1c894cca76b3'
+     password: '09d8e7ed-9e7d-4259-82f2-073608b0869b617b1e9e-441d-453d-9d64-06772a658f52'
+     apigw-token-url: 'https://apigw-st.telus.com/st/token'  
+     tfm_project_id: '192'       
+---
+
+spring:
+  profiles: pr
+
+connections:
+  webServices:
+    - name: resourceOrderReferenceSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pr.tsl.telus.com/RMO/OrderMgmt/ResourceOrderReference/ResourceOrderReferenceService_v1_1_1_vs0
+
+    - name: subscriberInformationDataGridSvc
+      username: APP_SELFSERVEUSGBIZSVC
+      password: soaorgid
+      endpointAddress: https://soa-mp-laird-pr.tsl.telus.com/v1-7/cmo/selfmgmt/subscriberinformationdatagrid/SubscriberInformationDataGridService_v1_7_vs0
+logging:
+  level:
+    root: WARN
+    
+security:
+   accesstoken: 
+     username: '4b0b47b1-4b8a-4967-8068-1c894cca76b3'
+     password: '09d8e7ed-9e7d-4259-82f2-073608b0869b617b1e9e-441d-453d-9d64-06772a658f52'
+     apigw-token-url: 'https://apigw-st.telus.com/token'  
+     tfm_project_id: '192'   
+     

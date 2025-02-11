@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scriptApproval plugin="script-security@1.27">
+  <approvedScriptHashes>
+    <string>81fcd717e73991108cda3a807597453c545c7e92</string>
+    <string>8711a6a37791c33ef93b505aa7827f6d04015a50</string>
+    <string>ba9df0b32481019ebb2b13efaab28f2a5b1ae052</string>
+    <string>913a98d2168433a632dde85e6fbef6862fa066a8</string> 
+  </approvedScriptHashes>
+  <approvedSignatures>
+    <string>method groovy.json.JsonBuilder call java.util.Map</string>
+    <string>method groovy.json.JsonBuilder getContent</string>
+    <string>method hudson.plugins.git.GitSCM getUserRemoteConfigs</string>
+    <string>method hudson.plugins.git.UserRemoteConfig getUrl</string>
+    <string>method java.time.LocalDate minusDays long</string>
+    <string>new groovy.json.JsonBuilder</string>
+    <string>staticMethod java.time.LocalDate now</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getAt java.util.Collection java.lang.String</string>
+    <string>staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods split java.lang.String</string>
+  </approvedSignatures>
+  <aclApprovedSignatures/>
+  <approvedClasspathEntries/>
+  <pendingScripts/>
+  <pendingSignatures/>
+  <pendingClasspathEntries/>
+</scriptApproval>
